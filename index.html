@@ -9,6 +9,8 @@
 
     <link rel="stylesheet" href="style.css">
 
+    <link rel="stylesheet" href="./script.js">
+
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
 </head>
@@ -706,29 +708,21 @@
         </div>
 
     </footer>
-    <script>
-        const elements = document.querySelectorAll(
-            '.about-grid, .hobby, .family-card, .markus-image, .markus-text, .project-card, .goal-content, .goal-list div, .contact-card'
-        );
 
-        elements.forEach((element, index) => {
-            element.classList.add(index % 2 === 0 ? 'reveal-left' : 'reveal-right');
-        });
+    <canvas id="particles-bg"></canvas>
+    <div id="scroll-progress"></div>
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('show');
-                } else {
-                    entry.target.classList.remove('show');
-                }
-            });
-        }, {
-            threshold: 0.15
-        });
+    <button id="back-to-top" aria-label="Yuqoriga qaytish">↑</button>
 
-        elements.forEach((element) => observer.observe(element));
-    </script>
+    <div class="project-modal" id="project-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <div class="project-modal-content">
+            <button class="project-modal-close" aria-label="Yopish">&times;</button>
+            <h3 id="modal-title"></h3>
+            <p id="modal-description"></p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 
 </html>
