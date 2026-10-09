@@ -30,13 +30,12 @@
         </nav>
 
         <a class="nav-button" href="https://18-ashen.vercel.app" target="_blank">
-            Mening saytim ↗
+            Mening saytim
         </a>
 
     </header>
 
 
-    <!-- BOSH SAHIFA -->
 
     <section class="hero" id="home">
 
@@ -90,7 +89,6 @@
         </div>
 
 
-        <!-- FAQAT FOTO -->
 
         <div class="hero-right">
 
@@ -105,7 +103,6 @@
     </section>
 
 
-    <!-- STATISTIKA -->
 
     <section class="stats">
 
@@ -132,7 +129,6 @@
     </section>
 
 
-    <!-- MEN HAQIMDA -->
 
     <section class="about section" id="about">
 
@@ -710,7 +706,29 @@
         </div>
 
     </footer>
+    <script>
+        const elements = document.querySelectorAll(
+            '.about-grid, .hobby, .family-card, .markus-image, .markus-text, .project-card, .goal-content, .goal-list div, .contact-card'
+        );
 
+        elements.forEach((element, index) => {
+            element.classList.add(index % 2 === 0 ? 'reveal-left' : 'reveal-right');
+        });
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                } else {
+                    entry.target.classList.remove('show');
+                }
+            });
+        }, {
+            threshold: 0.15
+        });
+
+        elements.forEach((element) => observer.observe(element));
+    </script>
 </body>
 
 </html>

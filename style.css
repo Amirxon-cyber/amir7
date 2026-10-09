@@ -1283,4 +1283,35 @@ footer p {
 }
 
 .ttyy image {
-    position: absolute;}
+    position: absolute;
+}
+
+.reveal-left,
+.reveal-right {
+    opacity: 0;
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal-left {
+    transform: translateX(-100px);
+}
+
+.reveal-right {
+    transform: translateX(100px);
+}
+
+.reveal-left.show,
+.reveal-right.show {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+@media (max-width: 600px) {
+    .reveal-left {
+        transform: translateX(-50px);
+    }
+
+    .reveal-right {
+        transform: translateX(50px);
+    }
+}
