@@ -1,9 +1,12 @@
+
 const elements = document.querySelectorAll(
     '.about-grid, .hobby, .family-card, .markus-image, .markus-text, .project-card, .goal-content, .goal-list div, .contact-card'
 );
 
 elements.forEach((element, index) => {
-    element.classList.add(index % 2 === 0 ? 'reveal-left' : 'reveal-right');
+    element.classList.add(
+        index % 2 === 0 ? 'reveal-left' : 'reveal-right'
+    );
 });
 
 const observer = new IntersectionObserver((entries) => {
@@ -21,120 +24,79 @@ const observer = new IntersectionObserver((entries) => {
 elements.forEach((element) => observer.observe(element));
 
 
+// MOVING PARTICLES BACKGROUND
 
 const canvas = document.querySelector("#particles-bg");
-const ctx = canvas.getContext("2d");
 
-let particles = [];
-let width = 0;
-let height = 0;
+if (canvas) {
+    const ctx = canvas.getContext("2d");
 
-function resizeCanvas() {
-    width = canvas.width = window.innerWidth;
-    height = canvas.height = window.innerHeight;
+    let particles = [];
+    let width = 0;
+    let height = 0;
 
-    const count = Math.min(70, Math.floor(width / 18));
+    function resizeCanvas() {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
 
-    particles = Array.from({ length: count }, () => ({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        size: Math.random() * 2 + 1,
-        speedX: (Math.random() - 0.5) * 0.5,
-        speedY: (Math.random() - 0.5) * 0.5
-    }));
-}
+        const count = Math.min(70, Math.floor(width / 18));
 
-function drawParticles() {
-    ctx.clearRect(0, 0, width, height);
-
-    particles.forEach((p, i) => {
-        p.x += p.speedX;
-        p.y += p.speedY;
-
-        if (p.x < 0 || p.x > width) p.speedX *= -1;
-        if (p.y < 0 || p.y > height) p.speedY *= -1;
-
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fillStyle = "#7187ff";
-        ctx.shadowBlur = 12;
-        ctx.shadowColor = "#6577ff";
-        ctx.fill();
-
-        for (let j = i + 1; j < particles.length; j++) {
-            const other = particles[j];
-            const dx = p.x - other.x;
-            const dy = p.y - other.y;
-            const distance = Math.sqrt(dx * dx + dy * dy);
-
-            if (distance < 110) {
-                ctx.beginPath();
-                ctx.moveTo(p.x, p.y);
-                ctx.lineTo(other.x, other.y);
-                ctx.strokeStyle = `rgba(101, 119, 255, ${1 - distance / 110})`;
-                ctx.lineWidth = 0.5;
-                ctx.stroke();
-            }
-        }
-    });
-
-    ctx.shadowBlur = 0;
-    requestAnimationFrame(drawParticles);
-}
-
-resizeCanvas();
-drawParticles();
-
-window.addEventListener("resize", resizeCanvas);
-
-const heroTitle = document.querySelector(".hero h1");
-
-if (heroTitle) {
-    const typing = document.createElement("div");
-    typing.style.marginTop = "15px";
-    typing.style.fontSize = "clamp(16px, 2vw, 22px)";
-    typing.innerHTML = '<span class="typing-text"></span><span class="typing-cursor">|</span>';
-    heroTitle.after(typing);
-
-    const typingText = typing.querySelector(".typing-text");
-    const words = [
-        "Web Developer",
-        "Frontend Developer",
-        "Future Programmer"
-    ];
-
-    let wordIndex = 0;
-    let letterIndex = 0;
-    let deleting = false;
-
-    function typeText() {
-        const word = words[wordIndex];
-
-        typingText.textContent = word.substring(0, letterIndex);
-
-        if (!deleting) {
-            letterIndex++;
-
-            if (letterIndex > word.length) {
-                deleting = true;
-                setTimeout(typeText, 1200);
-                return;
-            }
-        } else {
-            letterIndex--;
-
-            if (letterIndex < 0) {
-                deleting = false;
-                letterIndex = 0;
-                wordIndex = (wordIndex + 1) % words.length;
-            }
-        }
-
-        setTimeout(typeText, deleting ? 45 : 90);
+        particles = Array.from({ length: count }, () => ({
+            x: Math.random() * width,
+            y: Math.random() * height,
+            size: Math.random() * 2 + 1,
+            speedX: (Math.random() - 0.5) * 0.5,
+            speedY: (Math.random() - 0.5) * 0.5
+        }));
     }
 
-    typeText();
+    function drawParticles() {
+        ctx.clearRect(0, 0, width, height);
+
+        particles.forEach((p, i) => {
+            p.x += p.speedX;
+            p.y += p.speedY;
+
+            if (p.x < 0 || p.x > width) p.speedX *= -1;
+            if (p.y < 0 || p.y > height) p.speedY *= -1;
+
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            ctx.fillStyle = "#7187ff";
+            ctx.shadowBlur = 12;
+            ctx.shadowColor = "#6577ff";
+            ctx.fill();
+
+            for (let j = i + 1; j < particles.length; j++) {
+                const other = particles[j];
+                const dx = p.x - other.x;
+                const dy = p.y - other.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance < 110) {
+                    ctx.beginPath();
+                    ctx.moveTo(p.x, p.y);
+                    ctx.lineTo(other.x, other.y);
+                    ctx.strokeStyle =
+                        `rgba(101, 119, 255, ${1 - distance / 110})`;
+                    ctx.lineWidth = 0.5;
+                    ctx.stroke();
+                }
+            }
+        });
+
+        ctx.shadowBlur = 0;
+        requestAnimationFrame(drawParticles);
+    }
+
+    resizeCanvas();
+    drawParticles();
+
+    window.addEventListener("resize", resizeCanvas);
 }
+
+
+// SCROLL PROGRESS AND BACK TO TOP
 
 const progress = document.querySelector("#scroll-progress");
 const backToTop = document.querySelector("#back-to-top");
@@ -147,19 +109,35 @@ function updateScroll() {
         ? (window.scrollY / maxScroll) * 100
         : 0;
 
-    progress.style.width = percent + "%";
-    backToTop.classList.toggle("visible", window.scrollY > 400);
+    if (progress) {
+        progress.style.width = percent + "%";
+    }
+
+    if (backToTop) {
+        backToTop.classList.toggle(
+            "visible",
+            window.scrollY > 400
+        );
+    }
 }
 
-window.addEventListener("scroll", updateScroll, { passive: true });
+window.addEventListener("scroll", updateScroll, {
+    passive: true
+});
+
 updateScroll();
 
-backToTop.addEventListener("click", () => {
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
+if (backToTop) {
+    backToTop.addEventListener("click", () => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
     });
-});
+}
+
+
+// PROJECT DETAILS
 
 const projectDetails = [
     {
@@ -182,47 +160,54 @@ const modalTitle = document.querySelector("#modal-title");
 const modalDescription = document.querySelector("#modal-description");
 const closeModal = document.querySelector(".project-modal-close");
 
-projectCards.forEach((card, index) => {
-    card.setAttribute("role", "button");
-    card.setAttribute("tabindex", "0");
-    card.setAttribute("aria-haspopup", "dialog");
+if (modal && modalTitle && modalDescription && closeModal) {
+    projectCards.forEach((card, index) => {
+        card.setAttribute("role", "button");
+        card.setAttribute("tabindex", "0");
+        card.setAttribute("aria-haspopup", "dialog");
 
-    const more = document.createElement("span");
-    more.className = "project-more";
-    more.textContent = "Batafsil ko‘rish ↗";
-    card.appendChild(more);
+        if (!card.querySelector(".project-more")) {
+            const more = document.createElement("span");
+            more.className = "project-more";
+            more.textContent = "Batafsil ko‘rish ↗";
+            card.appendChild(more);
+        }
 
-    function openProject() {
-        const project = projectDetails[index];
-        if (!project) return;
+        function openProject() {
+            const project = projectDetails[index];
+            if (!project) return;
 
-        modalTitle.textContent = project.title;
-        modalDescription.textContent = project.description;
-        modal.classList.add("open");
-        closeModal.focus();
+            modalTitle.textContent = project.title;
+            modalDescription.textContent = project.description;
+            modal.classList.add("open");
+            closeModal.focus();
+        }
+
+        card.addEventListener("click", openProject);
+
+        card.addEventListener("keydown", (event) => {
+            if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                openProject();
+            }
+        });
+    });
+
+    function hideModal() {
+        modal.classList.remove("open");
     }
 
-    card.addEventListener("click", openProject);
+    closeModal.addEventListener("click", hideModal);
 
-    card.addEventListener("keydown", (event) => {
-        if (event.key === "Enter" || event.key === " ") {
-            event.preventDefault();
-            openProject();
+    modal.addEventListener("click", (event) => {
+        if (event.target === modal) {
+            hideModal();
         }
     });
-});
 
-function hideModal() {
-    modal.classList.remove("open");
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+            hideModal();
+        }
+    });
 }
-
-closeModal.addEventListener("click", hideModal);
-
-modal.addEventListener("click", (event) => {
-    if (event.target === modal) hideModal();
-});
-
-document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") hideModal();
-});
-
