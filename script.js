@@ -1,452 +1,336 @@
+document.addEventListener("DOMContentLoaded", function () {
+    const select = (selector, parent = document) => parent.querySelector(selector);
+    const selectAll = (selector, parent = document) => [...parent.querySelectorAll(selector)];
 
-const select = (selector) => document.querySelector(selector);
-const selectAll = (selector) => document.querySelectorAll(selector);
+    const menuToggle = select("#menu-toggle");
+    const navigation = select(".navigation");
+    const navLinks = selectAll(".nav-link");
+    const progressBar = select("#scroll-progress");
+    const backToTop = select("#back-to-top");
+    const modal = select("#project-modal");
+    const modalTitle = select("#modal-title");
+    const modalDescription = select("#modal-description");
+    const modalClose = select(".project-modal-close");
+    const modalDone = select(".modal-done");
 
-// ===============================
-// 1. ЗВЁЗДНОЕ НЕБО
-// ===============================
+    select("#current-year").textContent = new Date().getFullYear();
 
-let canvas = select("#particles-bg");
+    if (menuToggle && navigation) {
+        menuToggle.addEventListener("click", function () {
+            navigation.classList.toggle("open");
+            menuToggle.textContent = navigation.classList.contains("open") ? "✕" : "☰";
+        });
 
-if (!canvas) {
-    canvas = document.createElement("canvas");
-    canvas.id = "particles-bg";
-    document.body.prepend(canvas);
-}
+        navLinks.forEach(function (link) {
+            link.addEventListener("click", function () {
+                navigation.classList.remove("open");
+                menuToggle.textContent = "☰";
+            });
+        });
 
-const ctx = canvas.getContext("2d");
+        document.addEventListener("click", function (event) {
+            if (!navigation.contains(event.target) && !menuToggle.contains(event.target)) {
+                navigation.classList.remove("open");
+                menuToggle.textContent = "☰";
+            }
+        });
+    }
 
-let stars = [];
-let animationFrame;
+    function updateScroll() {
+        const scrollTop = window.scrollY;
+        const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = scrollable > 0 ? (scrollTop / scrollable) * 100 : 0;
 
-function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+        if (progressBar) {
+            progressBar.style.width = progress + "%";
+        }
 
-    stars = [];
+        if (backToTop) {
+            backToTop.classList.toggle("visible", scrollTop > 400);
+        }
+    }
 
-    const count = Math.min(
-        Math.floor((canvas.width * canvas.height) / 4500),
-        350
+    window.addEventListener("scroll", updateScroll, { passive: true });
+    updateScroll();
+
+    if (backToTop) {
+        backToTop.addEventListener("click", function () {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+    }
+
+    const revealElements = selectAll(
+        ".about-grid, .hobby, .family-card, .markus-image, .markus-text, .project-card, .goal-content, .goal-item, .contact-card, .detail-card, .section-heading, .about-main"
     );
 
-    for (let i = 0; i < count; i++) {
-        stars.push({
-            x: Math.random() * canvas.width,
-            y: Math.random() * canvas.height,
-            size: Math.random() * 1.8 + 0.3,
-            opacity: Math.random() * 0.7 + 0.2,
-            speed: Math.random() * 0.015 + 0.003,
-            direction: Math.random() > 0.5 ? 1 : -1
-        });
-    }
-}
-
-function drawStars() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    stars.forEach((star) => {
-        star.opacity += star.speed * star.direction;
-
-        if (star.opacity >= 1) {
-            star.opacity = 1;
-            star.direction = -1;
-        }
-
-        if (star.opacity <= 0.15) {
-            star.opacity = 0.15;
-            star.direction = 1;
-        }
-
-        ctx.beginPath();
-        ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(190, 190, 255, ${star.opacity})`;
-        ctx.shadowBlur = 8;
-        ctx.shadowColor = "#8b5cf6";
-        ctx.fill();
+    revealElements.forEach(function (element) {
+        element.classList.add("js-reveal");
     });
 
-    ctx.shadowBlur = 0;
-    animationFrame = requestAnimationFrame(drawStars);
-}
-
-canvas.style.cssText = `
-    position: fixed;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 0;
-`;
-
-resizeCanvas();
-drawStars();
-
-window.addEventListener("resize", resizeCanvas);
-
-// Контент сайта остаётся над звёздами
-const pageContent = selectAll(
-    "header, main, footer, section, .modal, #back-to-top"
-);
-
-pageContent.forEach((element) => {
-    if (getComputedStyle(element).position === "static") {
-        element.style.position = "relative";
-    }
-});
-
-// ===============================
-// 2. АНИМАЦИИ ПОЯВЛЕНИЯ
-// ===============================
-
-const revealElements = selectAll(`
-    .about-grid,
-    .hobby,
-    .family-card,
-    .markus-image,
-    .markus-text,
-    .project-card,
-    .goal-content,
-    .goal-list div,
-    .contact-card,
-    section h2,
-    .stats
-`);
-
-revealElements.forEach((element, index) => {
-    element.classList.add("js-reveal");
-
-    element.style.transitionDelay = `${(index % 4) * 0.1}s`;
-});
-
-const revealObserver = new IntersectionObserver(
-    (entries) => {
-        entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add("visible");
-                revealObserver.unobserve(entry.target);
-            }
-        });
-    },
-    { threshold: 0.12 }
-);
-
-revealElements.forEach((element) => {
-    revealObserver.observe(element);
-});
-
-// ===============================
-// 3. СТИЛИ АНИМАЦИЙ
-// ===============================
-
-const animationStyles = document.createElement("style");
-
-animationStyles.textContent = `
-    .js-reveal {
-        opacity: 0;
-        transform: translateY(35px);
-        transition:
-            opacity 0.8s ease,
-            transform 0.8s ease;
-    }
-
-    .js-reveal.visible {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    .project-card,
-    .family-card,
-    .hobby,
-    .contact-card {
-        transition:
-            transform 0.35s ease,
-            box-shadow 0.35s ease;
-    }
-
-    .project-card:hover,
-    .family-card:hover,
-    .hobby:hover,
-    .contact-card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 12px 35px rgba(124, 58, 237, 0.2);
-    }
-
-    #particles-bg {
-        display: block !important;
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-        .js-reveal {
-            opacity: 1;
-            transform: none;
-            transition: none;
-        }
-    }
-`;
-
-document.head.appendChild(animationStyles);
-
-// ===============================
-// 4. ПЛАВНАЯ ПРОКРУТКА
-// ===============================
-
-selectAll('a[href^="#"]').forEach((link) => {
-    link.addEventListener("click", (event) => {
-        const target = select(link.getAttribute("href"));
-
-        if (target) {
-            event.preventDefault();
-
-            target.scrollIntoView({
-                behavior: "smooth",
-                block: "start"
+    if ("IntersectionObserver" in window) {
+        const revealObserver = new IntersectionObserver(function (entries, observer) {
+            entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("visible");
+                    observer.unobserve(entry.target);
+                }
             });
-        }
-    });
-});
-
-// ===============================
-// 5. ИНДИКАТОР ПРОКРУТКИ
-// ===============================
-
-const progressBar = select("#scroll-progress");
-
-function updateProgress() {
-    if (!progressBar) return;
-
-    const scrollableHeight =
-        document.documentElement.scrollHeight - window.innerHeight;
-
-    const progress = scrollableHeight > 0
-        ? (window.scrollY / scrollableHeight) * 100
-        : 0;
-
-    progressBar.style.width = `${progress}%`;
-}
-
-window.addEventListener("scroll", updateProgress);
-updateProgress();
-
-// ===============================
-// 6. КНОПКА ВВЕРХ
-// ===============================
-
-const backToTop = select("#back-to-top");
-
-if (backToTop) {
-    backToTop.addEventListener("click", () => {
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
+        }, {
+            threshold: 0.12,
+            rootMargin: "0px 0px -30px 0px"
         });
-    });
 
-    window.addEventListener("scroll", () => {
-        backToTop.style.opacity =
-            window.scrollY > 400 ? "1" : "0.5";
-    });
-}
-
-// ===============================
-// 7. СЧЁТЧИКИ
-// ===============================
-
-const counters = selectAll(".stats strong");
-
-const counterObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-
-        const counter = entry.target;
-        const originalText = counter.textContent.trim();
-
-        if (!/^\d+$/.test(originalText)) {
-            counterObserver.unobserve(counter);
-            return;
-        }
-
-        const target = Number(originalText);
-        const duration = 1200;
-        const startTime = performance.now();
-
-        function updateCounter(currentTime) {
-            const progress = Math.min(
-                (currentTime - startTime) / duration,
-                1
-            );
-
-            const eased = 1 - Math.pow(1 - progress, 3);
-
-            counter.textContent = Math.floor(target * eased)
-                .toString()
-                .padStart(originalText.length, "0");
-
-            if (progress < 1) {
-                requestAnimationFrame(updateCounter);
-            } else {
-                counter.textContent = originalText;
-            }
-        }
-
-        requestAnimationFrame(updateCounter);
-        counterObserver.unobserve(counter);
-    });
-}, { threshold: 0.5 });
-
-counters.forEach((counter) => {
-    counterObserver.observe(counter);
-});
-
-// ===============================
-// 8. АКТИВНОЕ МЕНЮ
-// ===============================
-
-const sections = selectAll("main section[id]");
-const navLinks = selectAll("nav a[href^='#']");
-
-const sectionObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-
-        navLinks.forEach((link) => {
-            link.classList.toggle(
-                "active",
-                link.getAttribute("href") === `#${entry.target.id}`
-            );
+        revealElements.forEach(function (element) {
+            revealObserver.observe(element);
         });
-    });
-}, { threshold: 0.35 });
-
-sections.forEach((section) => {
-    sectionObserver.observe(section);
-});
-
-// ===============================
-// 9. МОДАЛЬНОЕ ОКНО ПРОЕКТОВ
-// ===============================
-
-const projectModal = select("#project-modal");
-const modalClose = select("#project-modal .close");
-const modalContent = select("#project-modal .modal-content");
-
-const projectDetails = [
-    {
-        title: "Mening loyiham",
-        description: "Bu mening shaxsiy loyiham."
-    },
-    {
-        title: "Web dasturlash",
-        description: "Men HTML, CSS va JavaScript yordamida saytlar yaratishni o‘rganaman."
-    },
-    {
-        title: "Kelajakdagi maqsadlarim",
-        description: "Yangi texnologiyalarni o‘rganish va yanada yaxshi loyihalar yaratish."
+    } else {
+        revealElements.forEach(function (element) {
+            element.classList.add("visible");
+        });
     }
-];
 
-function closeModal() {
-    if (!projectModal) return;
+    const counters = selectAll(".counter");
+    let countersStarted = false;
 
-    projectModal.style.display = "none";
-    document.body.style.overflow = "";
-}
+    function runCounters() {
+        if (countersStarted) return;
+        countersStarted = true;
 
-selectAll(".project-card").forEach((card, index) => {
-    function openModal() {
-        if (!projectModal || !modalContent) return;
+        counters.forEach(function (counter) {
+            const target = Number(counter.dataset.target) || 0;
+            const duration = 1200;
+            const startTime = performance.now();
 
-        const project = projectDetails[index] || {
-            title: card.querySelector("h3")?.textContent || "Loyiha",
-            description: card.querySelector("p")?.textContent || ""
-        };
+            function updateCounter(currentTime) {
+                const progress = Math.min((currentTime - startTime) / duration, 1);
+                const eased = 1 - Math.pow(1 - progress, 3);
+                counter.textContent = Math.round(target * eased);
 
-        modalContent.innerHTML = `
-            <button class="close" aria-label="Yopish">&times;</button>
-            <h2>${project.title}</h2>
-            <p>${project.description}</p>
-        `;
+                if (progress < 1) {
+                    requestAnimationFrame(updateCounter);
+                }
+            }
 
-        projectModal.style.display = "flex";
+            requestAnimationFrame(updateCounter);
+        });
+    }
+
+    const stats = select("#stats");
+
+    if (stats && "IntersectionObserver" in window) {
+        const counterObserver = new IntersectionObserver(function (entries, observer) {
+            if (entries[0].isIntersecting) {
+                runCounters();
+                observer.disconnect();
+            }
+        }, { threshold: 0.25 });
+
+        counterObserver.observe(stats);
+    } else {
+        runCounters();
+    }
+
+    const sections = selectAll("section[id]");
+
+    function updateActiveLink() {
+        let currentId = "home";
+
+        sections.forEach(function (section) {
+            if (window.scrollY >= section.offsetTop - 160) {
+                currentId = section.id;
+            }
+        });
+
+        navLinks.forEach(function (link) {
+            const isActive = link.getAttribute("href") === "#" + currentId;
+            link.classList.toggle("active", isActive);
+        });
+    }
+
+    window.addEventListener("scroll", updateActiveLink, { passive: true });
+    updateActiveLink();
+
+    function openModal(title, description) {
+        if (!modal) return;
+
+        modalTitle.textContent = title;
+        modalDescription.textContent = description;
+        modal.classList.add("open");
         document.body.style.overflow = "hidden";
 
-        modalContent.querySelector(".close").addEventListener(
-            "click",
-            closeModal
-        );
+        if (modalClose) {
+            modalClose.focus();
+        }
     }
 
-    card.style.cursor = "pointer";
+    function closeModal() {
+        if (!modal) return;
 
-    card.addEventListener("click", openModal);
+        modal.classList.remove("open");
+        document.body.style.overflow = "";
+    }
 
-    card.addEventListener("keydown", (event) => {
-        if (event.key === "Enter" || event.key === " ") {
-            event.preventDefault();
-            openModal();
-        }
+    selectAll(".project-open").forEach(function (button) {
+        button.addEventListener("click", function () {
+            openModal(
+                button.dataset.title || "Loyiha",
+                button.dataset.description || "Bu loyiha haqida qo‘shimcha ma’lumot."
+            );
+        });
     });
 
-    card.setAttribute("tabindex", "0");
-});
+    if (modalClose) {
+        modalClose.addEventListener("click", closeModal);
+    }
 
-if (modalClose) {
-    modalClose.addEventListener("click", closeModal);
-}
+    if (modalDone) {
+        modalDone.addEventListener("click", closeModal);
+    }
 
-if (projectModal) {
-    projectModal.addEventListener("click", (event) => {
-        if (event.target === projectModal) {
+    if (modal) {
+        modal.addEventListener("click", function (event) {
+            if (event.target === modal) {
+                closeModal();
+            }
+        });
+    }
+
+    document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") {
             closeModal();
         }
     });
-}
 
-document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") {
-        closeModal();
+    const canvas = select("#particles-bg");
+    const context = canvas ? canvas.getContext("2d") : null;
+    let particles = [];
+    let animationFrame = null;
+
+    function resizeCanvas() {
+        if (!canvas || !context) return;
+
+        const ratio = Math.min(window.devicePixelRatio || 1, 2);
+        canvas.width = window.innerWidth * ratio;
+        canvas.height = window.innerHeight * ratio;
+        canvas.style.width = window.innerWidth + "px";
+        canvas.style.height = window.innerHeight + "px";
+        context.setTransform(ratio, 0, 0, ratio, 0, 0);
+
+        const particleCount = Math.min(
+            100,
+            Math.floor((window.innerWidth * window.innerHeight) / 13000)
+        );
+
+        particles = Array.from({ length: particleCount }, function () {
+            return {
+                x: Math.random() * window.innerWidth,
+                y: Math.random() * window.innerHeight,
+                radius: Math.random() * 1.5 + 0.4,
+                speedX: (Math.random() - 0.5) * 0.25,
+                speedY: (Math.random() - 0.5) * 0.25,
+                alpha: Math.random() * 0.5 + 0.2
+            };
+        });
     }
-});
 
-// ===============================
-// 10. КНОПКИ
-// ===============================
+    function drawParticles() {
+        if (!canvas || !context) return;
 
-selectAll("button").forEach((button) => {
-    button.addEventListener("click", () => {
-        button.style.transform = "scale(0.96)";
+        context.clearRect(0, 0, window.innerWidth, window.innerHeight);
 
-        setTimeout(() => {
-            button.style.transform = "";
-        }, 150);
-    });
-});
+        const isLight = select("#theme-toggle")?.checked;
+        const particleColor = isLight ? "112, 65, 216" : "160, 180, 255";
 
-console.log("Sayt muvaffaqiyatli ishga tushdi!");
-console.log("Yulduzli fon va animatsiyalar yoqildi!");
+        particles.forEach(function (particle, index) {
+            particle.x += particle.speedX;
+            particle.y += particle.speedY;
 
-// FAMILY OWL CAROUSEL
+            if (particle.x < 0) particle.x = window.innerWidth;
+            if (particle.x > window.innerWidth) particle.x = 0;
+            if (particle.y < 0) particle.y = window.innerHeight;
+            if (particle.y > window.innerHeight) particle.y = 0;
 
-$(document).ready(function () {
-    $(".family-carousel").owlCarousel({
-        loop: true,
-        margin: 20,
-        nav: true,
-        dots: true,
-        autoplay: true,
-        autoplayTimeout: 3500,
-        autoplayHoverPause: true,
-        smartSpeed: 700,
-        responsive: {
-            0: {
-                items: 1
-            },
-            600: {
-                items: 2
-            },
-            1000: {
-                items: 3
+            context.beginPath();
+            context.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
+            context.fillStyle = `rgba(${particleColor}, ${particle.alpha})`;
+            context.fill();
+
+            for (let next = index + 1; next < particles.length; next++) {
+                const other = particles[next];
+                const dx = particle.x - other.x;
+                const dy = particle.y - other.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance < 100) {
+                    context.beginPath();
+                    context.moveTo(particle.x, particle.y);
+                    context.lineTo(other.x, other.y);
+                    context.strokeStyle = `rgba(${particleColor}, ${(1 - distance / 100) * 0.09})`;
+                    context.lineWidth = 0.5;
+                    context.stroke();
+                }
             }
-        }
+        });
+
+        animationFrame = requestAnimationFrame(drawParticles);
+    }
+
+    if (canvas && context) {
+        resizeCanvas();
+        drawParticles();
+
+        window.addEventListener("resize", resizeCanvas);
+
+        document.addEventListener("visibilitychange", function () {
+            if (document.hidden) {
+                cancelAnimationFrame(animationFrame);
+            } else {
+                cancelAnimationFrame(animationFrame);
+                drawParticles();
+            }
+        });
+    }
+
+    const familyCarousel = $(".family-carousel");
+
+    if (familyCarousel.length && typeof $.fn.owlCarousel === "function") {
+        familyCarousel.owlCarousel({
+            loop: true,
+            margin: 20,
+            nav: true,
+            dots: true,
+            autoplay: true,
+            autoplayTimeout: 3500,
+            autoplayHoverPause: true,
+            smartSpeed: 650,
+            navText: ["‹", "›"],
+            responsive: {
+                0: {
+                    items: 1,
+                    margin: 12
+                },
+                520: {
+                    items: 2,
+                    margin: 15
+                },
+                850: {
+                    items: 3,
+                    margin: 20
+                }
+            }
+        });
+    }
+
+    selectAll('a[href^="#"]').forEach(function (link) {
+        link.addEventListener("click", function (event) {
+            const targetId = link.getAttribute("href");
+            if (!targetId || targetId === "#") return;
+
+            const target = select(targetId);
+            if (!target) return;
+
+            event.preventDefault();
+            target.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
     });
 });

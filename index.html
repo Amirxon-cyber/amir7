@@ -1,675 +1,395 @@
-
 <!DOCTYPE html>
 <html lang="uz">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Amirxon Sobiraliyev</title>
-
-    <link rel="stylesheet" href="style.css">
-
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet">
-
-    <!-- Owl Carousel CSS -->
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
-
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
-
-    <style>
-        /* OILA CAROUSEL */
-
-        .family-carousel {
-            padding: 15px 5px 35px;
-        }
-
-        .family-carousel .family-card {
-            height: 100%;
-            overflow: hidden;
-            border-radius: 18px;
-            transition: transform 0.35s, border-color 0.35s,
-                box-shadow 0.35s;
-        }
-
-        .family-carousel .family-card:hover {
-            transform: translateY(-7px);
-            border-color: #7187ff;
-            box-shadow: 0 15px 35px rgba(113, 135, 255, 0.18);
-        }
-
-        .family-carousel .family-card img {
-            width: 100%;
-            height: 280px;
-            object-fit: cover;
-            display: block;
-        }
-
-        .family-carousel .owl-nav {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin-top: 15px;
-        }
-
-        .family-carousel .owl-nav button.owl-prev,
-        .family-carousel .owl-nav button.owl-next {
-            width: 42px;
-            height: 42px;
-            border: 1px solid #7187ff !important;
-            border-radius: 50%;
-            background: #11182c !important;
-            color: white !important;
-            font-size: 25px !important;
-            transition: 0.3s;
-        }
-
-        .family-carousel .owl-nav button:hover {
-            background: #5868ff !important;
-        }
-
-        .family-carousel .owl-dots {
-            margin-top: 12px;
-        }
-
-        .family-carousel .owl-dot span {
-            background: #38405a !important;
-            transition: 0.3s;
-        }
-
-        .family-carousel .owl-dot.active span {
-            width: 26px !important;
-            background: #7187ff !important;
-        }
-
-        .family-carousel .family-content {
-            padding: 18px;
-        }
-
-        @media (max-width: 600px) {
-            .family-carousel .family-card img {
-                height: 320px;
-            }
-        }
-    </style>
+    <title>Amirxon Sobiraliyev | Shaxsiy sayt</title>
+    <meta name="description" content="Amirxon Sobiraliyevning shaxsiy sayti">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+    <link rel="stylesheet" href="./style.css">
 </head>
-
 <body>
+    <input type="checkbox" id="theme-toggle" aria-label="Mavzuni almashtirish">
 
-    <!-- HEADER -->
+    <label for="theme-toggle" class="theme-switch">
+        <span class="light-icon">☀️ Yorug‘ rejim</span>
+        <span class="dark-icon">🌙 Qorong‘i rejim</span>
+    </label>
 
-    <header>
-        <div class="logo">
-            <span>A</span> AMIRXON
+    <canvas id="particles-bg"></canvas>
+
+    <header class="header" id="top">
+        <div class="container nav-container">
+            <a href="#home" class="logo">A<span>.</span>S</a>
+
+            <nav class="navigation">
+                <a href="#home" class="nav-link active">Bosh sahifa</a>
+                <a href="#about" class="nav-link">Men haqimda</a>
+                <a href="#family" class="nav-link">Oilam</a>
+                <a href="#projects" class="nav-link">Loyihalar</a>
+                <a href="#contact" class="nav-link">Aloqa</a>
+            </nav>
+
+            <a href="#contact" class="nav-button">Bog‘lanish ↗</a>
+            <button class="menu-toggle" id="menu-toggle" aria-label="Menyuni ochish">☰</button>
         </div>
-
-        <nav>
-            <a href="#home">Bosh sahifa</a>
-            <a href="#about">Men haqimda</a>
-            <a href="#family">Oilam</a>
-            <a href="#projects">Loyihalar</a>
-            <a href="#contact">Aloqa</a>
-        </nav>
-
-        <a class="nav-button" href="https://18-ashen.vercel.app" target="_blank">
-            Mening saytim
-        </a>
     </header>
 
-    <!-- BOSH SAHIFA -->
+    <section class="hero section" id="home">
+        <div class="container hero-grid">
+            <div class="hero-content">
+                <span class="eyebrow"><span class="status-dot"></span> Shaxsiy sahifamga xush kelibsiz</span>
+                <h1>Salom, men <span>Amirxon</span></h1>
+                <h2>Men <span class="typing-text">dasturlashni o‘rganyapman</span></h2>
+                <p>
+                    Men yangi bilimlarni o‘rganishni, dasturlashni va video o‘yinlarni
+                    yaxshi ko‘raman. Bu sahifada men, oilam va loyihalarim haqida
+                    bilib olishingiz mumkin.
+                </p>
 
-    <section class="hero" id="home">
+                <div class="hero-buttons">
+                    <a href="#about" class="btn btn-primary">Men haqimda <span>↘</span></a>
+                    <a href="#projects" class="btn btn-outline">Loyihalarim</a>
+                </div>
 
-        <div class="hero-left">
-
-            <div class="available">
-                <span></span>
-                YANGI NARSALARNI O‘RGANMOQDAMAN
+                <div class="hero-socials">
+                    <a href="https://instagram.com/amirxan.009" target="_blank" rel="noopener noreferrer">Instagram ↗</a>
+                    <a href="https://t.me/sobiraliyev12" target="_blank" rel="noopener noreferrer">Telegram ↗</a>
+                    <a href="https://discord.com/users/amir_0612" target="_blank" rel="noopener noreferrer">Discord ↗</a>
+                </div>
             </div>
 
-            <h1>
-                SALOM,
-                <br>
-                MEN <strong>AMIRXON</strong>
-            </h1>
+            <div class="hero-visual">
+                <div class="hero-glow"></div>
+                <div class="hero-photo-frame">
+                    <img src="" alt="Amirxon">
+                    <div class="photo-placeholder">
+                        <span>AS</span>
+                        <p>Shaxsiy surat</p>
+                    </div>
+                </div>
+                <div class="floating-card floating-card-top">
+                    <span class="floating-icon">💻</span>
+                    <div>
+                        <strong>Dasturlash</strong>
+                        <small>Yangi bilimlar</small>
+                    </div>
+                </div>
+                <div class="floating-card floating-card-bottom">
+                    <span class="floating-icon">🎮</span>
+                    <div>
+                        <strong>Video o‘yinlar</strong>
+                        <small>Sevimli mashg‘ulot</small>
+                    </div>
+                </div>
+                <div class="orbit orbit-one"></div>
+                <div class="orbit orbit-two"></div>
+            </div>
+        </div>
+        <a href="#stats" class="scroll-down">Pastga aylantiring <span>↓</span></a>
+    </section>
 
-            <p>
-                Men dasturlashni o‘rganayotgan, zamonaviy saytlar
-                yaratishga qiziqadigan va bo‘sh vaqtida video
-                o‘yinlar o‘ynaydigan yosh insonman.
-            </p>
+    <section class="stats-section" id="stats">
+        <div class="container stats-grid">
+            <div class="stat-card">
+                <span class="stat-icon">💻</span>
+                <h3 class="counter" data-target="3">0</h3>
+                <p>O‘rganilayotgan texnologiyalar</p>
+            </div>
+            <div class="stat-card">
+                <span class="stat-icon">🚀</span>
+                <h3 class="counter" data-target="5">0</h3>
+                <p>Yangi g‘oyalar</p>
+            </div>
+            <div class="stat-card">
+                <span class="stat-icon">📚</span>
+                <h3 class="counter" data-target="100">0</h3>
+                <p>O‘rganishga intilish (%)</p>
+            </div>
+            <div class="stat-card">
+                <span class="stat-icon">✨</span>
+                <h3>∞</h3>
+                <p>Orzular va maqsadlar</p>
+            </div>
+        </div>
+    </section>
 
-            <div class="hero-buttons">
-                <a href="#about" class="main-button">
-                    Men haqimda <span>↘</span>
+    <section class="section about-section" id="about">
+        <div class="container">
+            <div class="section-heading js-reveal">
+                <span class="section-label">MEN HAQIMDA</span>
+                <h2>O‘zim haqimda <span>qisqacha</span></h2>
+                <p>Qiziqishlarim, maqsadlarim va kundalik hayotim.</p>
+            </div>
+
+            <div class="about-grid">
+                <div class="about-main card js-reveal">
+                    <div class="about-icon">👋</div>
+                    <h3>Men Amirxon Sobiraliyevman</h3>
+                    <p>
+                        Men texnologiyalarga qiziqaman va dasturlashni o‘rganib,
+                        o‘z loyihalarimni yaratishga harakat qilaman. Har kuni
+                        yangi narsalarni o‘rganish va bilimlarimni rivojlantirish
+                        men uchun muhim.
+                    </p>
+                    <p>
+                        Kelajakda murakkabroq saytlar va foydali dasturlar yaratishni
+                        xohlayman. Bu sayt esa mening qiziqishlarim va rivojlanishim
+                        haqida hikoya qiladi.
+                    </p>
+                    <a href="#goals" class="text-link">Maqsadlarimni ko‘rish ↗</a>
+                </div>
+
+                <div class="about-details">
+                    <div class="detail-card card js-reveal">
+                        <span class="detail-icon">📍</span>
+                        <div>
+                            <h4>Joylashuv</h4>
+                            <p>Toshkent, O‘zbekiston</p>
+                        </div>
+                    </div>
+                    <div class="detail-card card js-reveal">
+                        <span class="detail-icon">🎯</span>
+                        <div>
+                            <h4>Asosiy maqsad</h4>
+                            <p>Dasturlashni chuqur o‘rganish</p>
+                        </div>
+                    </div>
+                    <div class="detail-card card js-reveal">
+                        <span class="detail-icon">⚡</span>
+                        <div>
+                            <h4>Shiorim</h4>
+                            <p>O‘rganishdan to‘xtama!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section hobbies-section" id="hobbies">
+        <div class="container">
+            <div class="section-heading js-reveal">
+                <span class="section-label">QIZIQISHLARIM</span>
+                <h2>Bo‘sh vaqtimda <span>nimalar qilaman?</span></h2>
+                <p>Men uchun qiziqarli bo‘lgan mashg‘ulotlar.</p>
+            </div>
+
+            <div class="hobbies-grid">
+                <article class="hobby card js-reveal">
+                    <div class="hobby-icon">⌨️</div>
+                    <h3>Dasturlash</h3>
+                    <p>HTML, CSS va JavaScript yordamida saytlar yaratishni o‘rganaman.</p>
+                    <div class="tag-list"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+                </article>
+                <article class="hobby card js-reveal">
+                    <div class="hobby-icon">🎮</div>
+                    <h3>Video o‘yinlar</h3>
+                    <p>Bo‘sh vaqtimda video o‘yinlar o‘ynashni yoqtiraman.</p>
+                    <div class="tag-list"><span>O‘yin</span><span>Dam olish</span></div>
+                </article>
+                <article class="hobby card js-reveal">
+                    <div class="hobby-icon">🌐</div>
+                    <h3>Yangi bilimlar</h3>
+                    <p>Internet orqali yangi texnologiyalar va foydali ko‘nikmalarni o‘rganaman.</p>
+                    <div class="tag-list"><span>Izlanish</span><span>Rivojlanish</span></div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="section family-section" id="family">
+        <div class="container">
+            <div class="section-heading js-reveal">
+                <span class="section-label">MENING OILAM</span>
+                <h2>Hayotimdagi eng aziz <span>insonlar</span></h2>
+                <p>Oilam — mening qo‘llab-quvvatlashim va quvonchim.</p>
+            </div>
+
+            <div class="family-carousel owl-carousel owl-theme">
+                <article class="family-card card">
+                    <img src="./photo_2026-10-09_14-06-35.jpg" alt="Otam" loading="lazy">
+                    <div class="family-content">
+                        <span class="family-role">OTAM</span>
+                        <h3>Nurmaxan Urazov</h3>
+                        <p>Oilamizning tayanchi.</p>
+                    </div>
+                </article>
+
+                <article class="family-card card">
+                    <img src="./photo_2026-10-09_13-57-02.jpg" alt="Onam" loading="lazy">
+                    <div class="family-content">
+                        <span class="family-role">ONAM</span>
+                        <h3>Mayra Sadibekova</h3>
+                        <p>Mehr va g‘amxo‘rlik timsoli.</p>
+                    </div>
+                </article>
+
+                <article class="family-card card">
+                    <img src="photo_2026-10-08_22-56-20.jpg" alt="Opam" loading="lazy">
+                    <div class="family-content">
+                        <span class="family-role">OPAM</span>
+                        <h3>Akerke Sobiraliyeva</h3>
+                        <p>Oilamizning aziz a'zosi.</p>
+                    </div>
+                </article>
+
+                <article class="family-card card">
+                    <img src="./photo_2026-10-09_14-07-19.jpg" alt="Akam" loading="lazy">
+                    <div class="family-content">
+                        <span class="family-role">AKAM</span>
+                        <h3>Tursun Sobiraliyev</h3>
+                        <p>Oilamizning muhim a'zosi.</p>
+                    </div>
+                </article>
+
+                <article class="family-card card">
+                    <img src="photo_2026-10-08_22-56-26 (2).jpg" alt="Singlim" loading="lazy">
+                    <div class="family-content">
+                        <span class="family-role">SINGLIM</span>
+                        <h3>Banu Sobiraliyeva</h3>
+                        <p>Oilamizning quvonchi.</p>
+                    </div>
+                </article>
+            </div>
+            <div class="carousel-hint">Suratlarni ko‘rish uchun yon tomonga suring ← →</div>
+        </div>
+    </section>
+
+    <section class="section markus-section" id="markus">
+        <div class="container markus-grid">
+            <div class="markus-image js-reveal">
+                <div class="markus-image-frame">
+                    <img src="image.png" alt="Markus oti" loading="lazy">
+                </div>
+                <span class="markus-badge">🐎 Mening otim</span>
+            </div>
+            <div class="markus-text js-reveal">
+                <span class="section-label">MAXSUS BO‘LIM</span>
+                <h2>Markus bilan <span>tanishing</span></h2>
+                <p>
+                    Markus — mening otim. U mening hayotimdagi alohida o‘ringa
+                    ega. Bu bo‘limda men o‘z otim haqida esdalikni saqlab qo‘yganman.
+                </p>
+                <div class="markus-facts">
+                    <div><span>🐴</span><strong>Ismi</strong><p>Markus</p></div>
+                    <div><span>💙</span><strong>O‘rni</strong><p>Sevimli otim</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section projects-section" id="projects">
+        <div class="container">
+            <div class="section-heading js-reveal">
+                <span class="section-label">LOYIHALARIM</span>
+                <h2>Men yaratgan <span>g‘oyalar</span></h2>
+                <p>O‘rganish jarayonida yaratadigan loyihalarim.</p>
+            </div>
+
+            <div class="projects-grid">
+                <article class="project-card card js-reveal">
+                    <div class="project-top"><span class="project-number">01</span><span class="project-symbol">🌐</span></div>
+                    <h3>Shaxsiy veb-sayt</h3>
+                    <p>Men, oilam, qiziqishlarim va maqsadlarim haqida shaxsiy sahifa.</p>
+                    <div class="tag-list"><span>HTML</span><span>CSS</span><span>JS</span></div>
+                    <button class="project-open" data-title="Shaxsiy veb-sayt" data-description="Ushbu loyiha mening shaxsiy sahifam. Unda men, oilam, qiziqishlarim va maqsadlarim haqida ma'lumotlar bor.">Batafsil ko‘rish ↗</button>
+                </article>
+
+                <article class="project-card card js-reveal">
+                    <div class="project-top"><span class="project-number">02</span><span class="project-symbol">🛍️</span></div>
+                    <h3>Onlayn do‘kon</h3>
+                    <p>Mahsulotlar kartalari, narxlar va qulay interfeysga ega do‘kon g‘oyasi.</p>
+                    <div class="tag-list"><span>HTML</span><span>CSS</span><span>Grid</span></div>
+                    <button class="project-open" data-title="Onlayn do‘kon" data-description="Bu loyiha mahsulotlar katalogi, kartalar va qulay interfeys yaratishni mashq qilish uchun mo‘ljallangan.">Batafsil ko‘rish ↗</button>
+                </article>
+
+                <article class="project-card card js-reveal">
+                    <div class="project-top"><span class="project-number">03</span><span class="project-symbol">🏫</span></div>
+                    <h3>Maktab sayti</h3>
+                    <p>Maktab yangiliklari, galereya va foydali ma’lumotlar uchun veb-sahifa.</p>
+                    <div class="tag-list"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+                    <button class="project-open" data-title="Maktab sayti" data-description="Maktab loyihasida yangiliklar, suratlar galereyasi va maktab haqida ma'lumotlarni chiroyli ko‘rsatish rejalashtirilgan.">Batafsil ko‘rish ↗</button>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="section goals-section" id="goals">
+        <div class="container goals-grid">
+            <div class="goal-content js-reveal">
+                <span class="section-label">KELAJAK REJALARIM</span>
+                <h2>Har kuni <span>oldinga</span></h2>
+                <p>
+                    Maqsadlarimga erishish uchun muntazam mashq qilish, yangi
+                    bilimlarni o‘rganish va o‘z loyihalarim ustida ishlashni xohlayman.
+                </p>
+                <a href="#contact" class="btn btn-primary">Men bilan bog‘laning ↗</a>
+            </div>
+
+            <div class="goal-list">
+                <div class="goal-item js-reveal"><span class="goal-check">✓</span><div><h3>HTML va CSS</h3><p>Mustahkam poydevor yaratish</p></div></div>
+                <div class="goal-item js-reveal"><span class="goal-check">✓</span><div><h3>JavaScript</h3><p>Interaktiv saytlar yaratishni o‘rganish</p></div></div>
+                <div class="goal-item js-reveal"><span class="goal-check">✓</span><div><h3>Yangi loyihalar</h3><p>G‘oyalarni haqiqiy loyihalarga aylantirish</p></div></div>
+                <div class="goal-item js-reveal"><span class="goal-check">✓</span><div><h3>Doimiy rivojlanish</h3><p>Har kuni yangi narsani o‘rganish</p></div></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section contact-section" id="contact">
+        <div class="container">
+            <div class="section-heading js-reveal">
+                <span class="section-label">ALOQA</span>
+                <h2>Men bilan <span>bog‘laning</span></h2>
+                <p>Quyidagi platformalar orqali men bilan aloqaga chiqishingiz mumkin.</p>
+            </div>
+
+            <div class="contact-grid">
+                <a href="https://instagram.com/amirxan.009" target="_blank" rel="noopener noreferrer" class="contact-card card">
+                    <span class="contact-icon instagram-icon">◎</span><span><strong>Instagram</strong><small>@amirxan.009</small></span><span class="contact-arrow">↗</span>
                 </a>
-
-                <a href="#contact" class="outline-button">
-                    Bog‘lanish
+                <a href="https://t.me/sobiraliyev12" target="_blank" rel="noopener noreferrer" class="contact-card card">
+                    <span class="contact-icon telegram-icon">➤</span><span><strong>Telegram</strong><small>@sobiraliyev12</small></span><span class="contact-arrow">↗</span>
+                </a>
+                <a href="https://discord.com/users/amir_0612" target="_blank" rel="noopener noreferrer" class="contact-card card">
+                    <span class="contact-icon discord-icon">◉</span><span><strong>Discord</strong><small>Amir</small></span><span class="contact-arrow">↗</span>
+                </a>
+                <a href="tel:+998910073556" class="contact-card card">
+                    <span class="contact-icon phone-icon">☎</span><span><strong>Telefon</strong><small>+998 91 007 35 56</small></span><span class="contact-arrow">↗</span>
+                </a>
+                <a href="https://18-ashen.vercel.app" target="_blank" rel="noopener noreferrer" class="contact-card card">
+                    <span class="contact-icon website-icon">⌘</span><span><strong>Veb-sayt</strong><small>18-ashen.vercel.app</small></span><span class="contact-arrow">↗</span>
                 </a>
             </div>
-
-            <div class="hero-socials">
-                <a href="https://instagram.com/amirxan.009" target="_blank">IG</a>
-                <a href="https://t.me/sobiraliyev12" target="_blank">TG</a>
-                <a href="https://discord.com/users/amir_0612" target="_blank">DC</a>
-            </div>
-
-        </div>
-
-        <div class="hero-right">
-            <div class="image-ring"></div>
-            <div class="image-glow"></div>
-            <img src="" alt="Amirxon">
-        </div>
-
-    </section>
-
-    <!-- STATISTIKA -->
-
-    <section class="stats">
-        <div>
-            <strong>01</strong>
-            <span>Shaxsiy sayt</span>
-        </div>
-
-        <div>
-            <strong>02</strong>
-            <span>Asosiy hobbi</span>
-        </div>
-
-        <div>
-            <strong>∞</strong>
-            <span>Yangi g‘oyalar</span>
-        </div>
-
-        <div>
-            <strong>24/7</strong>
-            <span>Rivojlanish</span>
         </div>
     </section>
 
-    <!-- MEN HAQIMDA -->
-
-    <section class="about section" id="about">
-
-        <div class="section-label">
-            <span>01</span>
-            MEN HAQIMDA
-        </div>
-
-        <div class="about-grid">
-
-            <div class="about-title">
-                <h2>
-                    Men o‘zimni
-                    <span>rivojlantirishni</span>
-                    yaxshi ko‘raman.
-                </h2>
-            </div>
-
-            <div class="about-text">
-
-                <p>
-                    Mening ismim <b>Amirxon Sobiraliyev</b>.
-                    Men texnologiyalar, dasturlash va kompyuterlar
-                    bilan shug‘ullanishga qiziqaman.
-                </p>
-
-                <p>
-                    Hozirda HTML va CSS yordamida web saytlar
-                    yaratishni o‘rganmoqdaman.
-                </p>
-
-                <p>
-                    Dasturlashdan tashqari video o‘yinlar o‘ynash,
-                    avtomobillarga qiziqish va yangi narsalarni
-                    sinab ko‘rish ham menga yoqadi.
-                </p>
-
-                <div class="personal-info">
-                    <div>
-                        <small>ISM</small>
-                        <b>Amirxon</b>
-                    </div>
-
-                    <div>
-                        <small>FAMILIYA</small>
-                        <b>Sobiraliyev</b>
-                    </div>
-
-                    <div>
-                        <small>ASOSIY QIZIQISH</small>
-                        <b>Dasturlash</b>
-                    </div>
-
-                    <div>
-                        <small>BO‘SH VAQT</small>
-                        <b>Video o‘yinlar</b>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- QIZIQISHLAR -->
-
-    <section class="hobbies section">
-
-        <div class="section-heading">
-            <div>
-                <span>02 — QIZIQISHLAR</span>
-                <h2>Menga yoqadigan narsalar</h2>
-            </div>
-
-            <p>
-                Men bo‘sh vaqtimni foydali va qiziqarli
-                mashg‘ulotlar bilan o‘tkazishni yaxshi ko‘raman.
-            </p>
-        </div>
-
-        <div class="hobby-grid">
-
-            <div class="hobby big">
-                <div class="hobby-number">01</div>
-                <div class="hobby-icon">💻</div>
-                <h3>Dasturlash</h3>
-                <p>
-                    Saytlar yaratish, kod yozish va yangi
-                    web texnologiyalarni o‘rganish.
-                </p>
-            </div>
-
-            <div class="hobby">
-                <div class="hobby-number">02</div>
-                <div class="hobby-icon">🎮</div>
-                <h3>Video o‘yinlar</h3>
-                <p>Turli xil o‘yinlar o‘ynab dam olish.</p>
-            </div>
-
-            <div class="hobby">
-                <div class="hobby-number">03</div>
-                <div class="hobby-icon">🚗</div>
-                <h3>Avtomobillar</h3>
-                <p>Chiroyli va zamonaviy mashinalarga qiziqish.</p>
-            </div>
-
-            <div class="hobby wide">
-                <div class="hobby-number">04</div>
-                <div class="hobby-icon">🚀</div>
-                <h3>Yangi narsalar</h3>
-                <p>
-                    Har kuni yangi narsalarni o‘rganish,
-                    yangi loyihalar qilish va o‘zimni rivojlantirish.
-                </p>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- OILA: OWL CAROUSEL -->
-
-    <section class="family-section section" id="family">
-
-        <div class="section-heading">
-            <div>
-                <span>03 — MENING OILAM</span>
-                <h2>Oilam ❤️</h2>
-            </div>
-
-            <p>
-                Mening oilamdagi eng yaqin insonlar.
-            </p>
-        </div>
-
-        <div class="owl-carousel owl-theme family-carousel">
-
-            <div class="family-card">
-                <img src="./photo_2026-10-09_14-06-35.jpg"
-                    alt="Nurmaxan Urazov">
-
-                <div class="family-content">
-                    <small>OTAM</small>
-                    <h3>Nurmaxan Urazov</h3>
-                </div>
-            </div>
-
-            <div class="family-card">
-                <img src="./photo_2026-10-09_13-57-02.jpg"
-                    alt="Mayra Sadibekova">
-
-                <div class="family-content">
-                    <small>ONAM</small>
-                    <h3>Mayra Sadibekova</h3>
-                </div>
-            </div>
-
-            <div class="family-card">
-                <img src="photo_2026-10-08_22-56-20.jpg"
-                    alt="Akerke Sobiraliyeva">
-
-                <div class="family-content">
-                    <small>OPAM</small>
-                    <h3>Akerke Sobiraliyeva</h3>
-                </div>
-            </div>
-
-            <div class="family-card">
-                <img src="./photo_2026-10-09_14-07-19.jpg"
-                    alt="Tursun Sobiraliyev">
-
-                <div class="family-content">
-                    <small>AKAM</small>
-                    <h3>Tursun Sobiraliyev</h3>
-                </div>
-            </div>
-
-            <div class="family-card">
-                <img src="photo_2026-10-08_22-56-26 (2).jpg"
-                    alt="Banu Sobiraliyeva">
-
-                <div class="family-content">
-                    <small>SINGLIM</small>
-                    <h3>Banu Sobiraliyeva</h3>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- MARKUS -->
-
-    <section class="markus section">
-
-        <div class="markus-image">
-            <img src="image.png" alt="Markus">
-        </div>
-
-        <div class="markus-text">
-            <span>04 — MENING OTIM</span>
-            <h2>Markus 🐎</h2>
-
-            <p>
-                Mening otimning ismi Markus.
-                U ham mening hayotimning bir qismi,
-                shuning uchun bu saytda uning uchun
-                alohida joy qoldirdim.
-            </p>
-
-            <div class="markus-info">
-                <div>
-                    <small>ISMI</small>
-                    <b>Markus</b>
-                </div>
-
-                <div>
-                    <small>TURI</small>
-                    <b>Ot</b>
-                </div>
-            </div>
-        </div>
-
-    </section>
-
-    <!-- LOYIHALAR -->
-
-    <section class="projects section" id="projects">
-
-        <div class="section-heading">
-            <div>
-                <span>05 — LOYIHALAR</span>
-                <h2>Mening loyihalarim</h2>
-            </div>
-
-            <p>
-                Men yaratgan va kelajakda yaratadigan
-                web loyihalar.
-            </p>
-        </div>
-
-        <div class="project-grid">
-
-            <div class="project-card">
-                <span>01</span>
-                <div class="project-icon">🌐</div>
-                <h3>Shaxsiy sayt</h3>
-                <p>
-                    Men haqimdagi ma'lumotlar, qiziqishlarim
-                    va oilam haqida shaxsiy web sayt.
-                </p>
-            </div>
-
-            <div class="project-card">
-                <span>02</span>
-                <div class="project-icon">🛒</div>
-                <h3>Online do‘kon</h3>
-                <p>
-                    Kelajakda yaratishim mumkin bo‘lgan
-                    zamonaviy internet do‘kon.
-                </p>
-            </div>
-
-            <div class="project-card">
-                <span>03</span>
-                <div class="project-icon">🚘</div>
-                <h3>Avtomobil sayti</h3>
-                <p>
-                    Avtomobillar haqida ma'lumot beruvchi
-                    zamonaviy web loyiha.
-                </p>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- MAQSADLAR -->
-
-    <section class="goals section">
-
-        <div class="goal-content">
-            <span>06 — KELAJAKDAGI MAQSADLARIM</span>
-
-            <h2>
-                Hali hammasi
-                <strong>oldinda.</strong>
-            </h2>
-
-            <p>
-                Men dasturlashni yanada yaxshi o‘rganib,
-                katta loyihalar yaratishni va o‘z sohamda
-                kuchli bo‘lishni xohlayman.
-            </p>
-        </div>
-
-        <div class="goal-list">
-            <div>
-                <b>01</b>
-                <span>Professional dasturchi bo‘lish</span>
-            </div>
-
-            <div>
-                <b>02</b>
-                <span>Ko‘plab saytlar yaratish</span>
-            </div>
-
-            <div>
-                <b>03</b>
-                <span>Yangi texnologiyalarni o‘rganish</span>
-            </div>
-
-            <div>
-                <b>04</b>
-                <span>O‘z loyihalarimni rivojlantirish</span>
-            </div>
-        </div>
-
-    </section>
-
-    <!-- ALOQA -->
-
-    <section class="contact section" id="contact">
-
-        <div class="contact-title">
-            <span>07 — ALOQA</span>
-
-            <h2>
-                Men bilan
-                <strong>bog‘laning.</strong>
-            </h2>
-
-            <p>
-                Ijtimoiy tarmoqlarim yoki telefon orqali
-                men bilan bog‘lanishingiz mumkin.
-            </p>
-        </div>
-
-        <div class="contact-grid">
-
-            <a class="contact-card instagram"
-                href="https://instagram.com/amirxan.009" target="_blank">
-                <div class="contact-top">
-                    <span>Instagram</span>
-                    <b>↗</b>
-                </div>
-                <div class="contact-icon">◎</div>
-                <h3>@amirxan.009</h3>
-                <p>Instagram orqali bog‘lanish</p>
-            </a>
-
-            <a class="contact-card telegram"
-                href="https://t.me/sobiraliyev12" target="_blank">
-                <div class="contact-top">
-                    <span>Telegram</span>
-                    <b>↗</b>
-                </div>
-                <div class="contact-icon">➤</div>
-                <h3>@sobiraliyev12</h3>
-                <p>Telegram orqali yozish</p>
-            </a>
-
-            <a class="contact-card discord"
-                href="https://discord.com/users/amir_0612" target="_blank">
-                <div class="contact-top">
-                    <span>Discord</span>
-                    <b>↗</b>
-                </div>
-                <div class="contact-icon">◉</div>
-                <h3>Amir</h3>
-                <p>Discord orqali bog‘lanish</p>
-            </a>
-
-            <a class="contact-card phone" href="tel:+998910073556">
-                <div class="contact-top">
-                    <span>Telefon</span>
-                    <b>↗</b>
-                </div>
-                <div class="contact-icon">☎</div>
-                <h3>+998 91 007 35 56</h3>
-                <p>Telefon orqali bog‘lanish</p>
-            </a>
-
-            <a class="contact-card website"
-                href="https://18-ashen.vercel.app" target="_blank">
-                <div class="contact-top">
-                    <span>Mening saytim</span>
-                    <b>↗</b>
-                </div>
-                <div class="contact-icon">🌐</div>
-                <h3>18-ashen.vercel.app</h3>
-                <p>Mening saytni ochish</p>
-            </a>
-
-        </div>
-    </section>
-
-    <!-- FOOTER -->
-
-    <footer>
-        <div class="footer-logo">
-            AMIRXON<span>.</span>
-        </div>
-
-        <p>Amirxon Sobiraliyevning shaxsiy sayti</p>
-
-        <div class="footer-socials">
-            <a href="https://instagram.com/amirxan.009" target="_blank">
-                Instagram
-            </a>
-
-            <a href="https://t.me/sobiraliyev12" target="_blank">
-                Telegram
-            </a>
-
-            <a href="https://discord.com/users/amir_0612" target="_blank">
-                Discord
-            </a>
-        </div>
-
-        <div class="footer-bottom">
-            © 2026 Amirxon Sobiraliyev
+    <footer class="footer">
+        <div class="container footer-inner">
+            <a href="#home" class="logo">A<span>.</span>S</a>
+            <p>© <span id="current-year">2026</span> Amirxon Sobiraliyev. Barcha huquqlar himoyalangan.</p>
+            <a href="#home" class="footer-top">Yuqoriga ↑</a>
         </div>
     </footer>
 
-    <!-- EFFEKT VA MODAL -->
+    <button class="back-to-top" id="back-to-top" aria-label="Yuqoriga qaytish">↑</button>
 
-    <canvas id="particles-bg"></canvas>
-    <div id="scroll-progress"></div>
-
-    <button id="back-to-top" aria-label="Yuqoriga qaytish">↑</button>
-
-    <div class="project-modal" id="project-modal"
-        role="dialog" aria-modal="true" aria-labelledby="modal-title">
-
+    <div class="project-modal" id="project-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
         <div class="project-modal-content">
-            <button class="project-modal-close" aria-label="Yopish"></button>
+            <button class="project-modal-close" aria-label="Yopish">×</button>
+            <span class="section-label">LOYIHA HAQIDA</span>
             <h3 id="modal-title"></h3>
             <p id="modal-description"></p>
+            <button class="btn btn-primary modal-done" type="button">Tushunarli</button>
         </div>
     </div>
 
-    <!-- jQuery va Owl Carousel -->
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-
-    <!-- SHAXSIY JAVASCRIPT -->
-
-    <script src="script.js"></script>
-
-    <!-- OILA KARUSELI -->
-
-    <script>
-        $(document).ready(function () {
-            $(".family-carousel").owlCarousel({
-                loop: true,
-                margin: 20,
-                nav: true,
-                dots: true,
-                autoplay: true,
-                autoplayTimeout: 3500,
-                autoplayHoverPause: true,
-                smartSpeed: 700,
-                navText: ["‹", "›"],
-
-                responsive: {
-                    0: {
-                        items: 1
-                    },
-                    600: {
-                        items: 2
-                    },
-                    1000: {
-                        items: 3
-                    }
-                }
-            });
-        });
-    </script>
-
+    <script src="./script.js"></script>
 </body>
 </html>
