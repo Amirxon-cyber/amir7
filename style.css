@@ -292,6 +292,8 @@ body:has(#theme-toggle:checked) .hero-socials a:hover {
     backdrop-filter: blur(18px);
     border-bottom: 1px solid var(--border);
     transition: background var(--transition);
+    height: auto;
+    min-height: 0;
 }
 
 .nav-container {
@@ -2075,12 +2077,8 @@ section {
     }
 }
 
-header {
-    height: auto;
-    min-height: 0;
-}
 
-.navbar {
+.navbar{
     min-height: 0;
     padding: 20px 25px;
 }
